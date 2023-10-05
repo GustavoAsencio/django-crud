@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+
+{% block content %}
+<h1>Tareas pendientes</h1>
+
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        icon: "{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% endif %}",
+        title: "{% if message.tags == 'success' %}Éxito{% elif message.tags == 'error' %}Error{% endif %}",
+        text: "{{ message }}",
+        //footer: '<a href="">¿Por qué tengo este problema?</a>'
+    });
+</script>
+{% endfor %}
+{% endif %}
+<br>
+
+<ul>
+    {% for task in tasks %}
+    <a href="{% url 'task_detail' task.id %}">
+    <li>
+        <h1>Titulo: {{task.title}}</h1>
+    </li>
+</a>
+    <li>
+        <p>Descripcion: {{task.description}}</p>
+    </li>
+    <li>Creada por: {{task.user}}</li>
+    <li>Fecha de creacion: {{task.created}}</li>
+    <li>{% if task.important %} es importante {% else %} no es importante {% endif %}</li>
+    
+    
+    {% endfor %}
+
+</ul>
+
+
+
+{% endblock %}

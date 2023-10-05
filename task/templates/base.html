@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'signup' %}">Crea cuenta</a></li>
+            <li><a href="{% url 'task' %}">Ver Tareas incompletas</a></li>
+            <li><a href="{% url 'completedTasks' %}">Ver Tareas completas</a></li>
+            <li><a href="{% url 'createTask' %}">Crear Tarea</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            {% if user.is_authenticated %}
+            <!-- Mostrar el nombre del usuario autenticado -->
+            <li><p>Bienvenido, {{ user.username }}</p></li>
+            <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+            {% else %}
+            <!-- Mostrar la opción de inicio de sesión si el usuario no está autenticado -->
+            <li><a href="{% url 'signin' %}">Ingresar</a></li>
+
+            {% endif %}
+
+        </ul>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>

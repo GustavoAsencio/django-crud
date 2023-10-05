@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Acá se crean las tareas</h1>
+
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        Swal.fire({
+            icon: "{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% endif %}",
+            title: "{% if message.tags == 'success' %}Éxito{% elif message.tags == 'error' %}Error{% endif %}",
+            text: "{{ message }}",
+            //footer: '<a href="">¿Por qué tengo este problema?</a>'
+        });
+    </script>
+    {% endfor %}
+    {% endif %}
+
+
+    <form action="/task/create/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Crear</button>
+    </form>
+{% endblock %}
